@@ -10,7 +10,7 @@ It is built for early literature review work where the hard part is seeing what 
 - Build a comparison matrix across source, method, themes, finding, limitation, and evidence pointer.
 - Summarize theme coverage and method mix.
 - Flag missing columns and thin themes as synthesis prompts.
-- Export Markdown for notes and CSV for spreadsheets.
+- Export Markdown for notes and CSV for spreadsheets, with formula-like CSV cells guarded before spreadsheet import.
 - Run entirely in the browser without accounts, keys, or network calls.
 
 ## Good learning and research scenarios
@@ -88,7 +88,7 @@ Then use:
 - Theme coverage bars.
 - Gap prompts for thin themes, method imbalance, and missing fields.
 - Clipboard copy with selection fallback.
-- Markdown and CSV downloads.
+- Markdown and CSV downloads with spreadsheet-formula guards.
 - Responsive desktop and mobile layout.
 
 ## Validation

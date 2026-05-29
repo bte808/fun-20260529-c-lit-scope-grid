@@ -54,4 +54,18 @@ const csv = toCsv(sampleSources);
 assert.match(csv, /^id,title,authors,year/m);
 assert.match(csv, /"classroom quiz intervention, n=96"/);
 
+const guardedCsv = toCsv(parseNotes(`title: =IMPORTXML("https://example.test","//a")
+authors: @handle
+year: 2026
+method: +survey
+themes: export safety
+finding: -formula-like note
+limitation: safe export boundary
+evidence: =A1`));
+assert.match(guardedCsv, /"'=IMPORTXML/);
+assert.match(guardedCsv, /'@handle/);
+assert.match(guardedCsv, /'\+survey/);
+assert.match(guardedCsv, /'-formula-like note/);
+assert.match(guardedCsv, /'=A1/);
+
 console.log("All lit scope checks passed.");

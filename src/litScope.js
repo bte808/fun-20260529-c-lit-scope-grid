@@ -448,9 +448,13 @@ function markdownCell(value) {
 }
 
 function csvCell(value) {
-  const text = String(value || "");
+  const text = guardSpreadsheetFormula(String(value || ""));
   if (/[",\n]/.test(text)) {
     return `"${text.replace(/"/g, '""')}"`;
   }
   return text;
+}
+
+function guardSpreadsheetFormula(text) {
+  return /^[\t ]*[=+\-@]/.test(text) ? `'${text}` : text;
 }
