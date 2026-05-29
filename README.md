@@ -9,6 +9,7 @@ It is built for early literature review work where the hard part is seeing what 
 - Parse source notes with fields such as `title`, `authors`, `year`, `method`, `themes`, `finding`, `limitation`, `evidence`, and `relevance`.
 - Build a comparison matrix across source, method, themes, finding, limitation, and evidence pointer.
 - Summarize theme coverage and method mix.
+- Recommend the next review pass, such as adding sources, filling missing fields, or checking a thin theme.
 - Flag missing columns and thin themes as synthesis prompts.
 - Export Markdown for notes and CSV for spreadsheets, with formula-like CSV cells guarded before spreadsheet import.
 - Run entirely in the browser without accounts, keys, or network calls.
@@ -85,6 +86,7 @@ Then use:
 - Deterministic parser and analysis functions in `src/litScope.js`.
 - Default synthetic sample that demonstrates the full flow immediately.
 - Matrix completeness meter.
+- Next-pass recommendation for the most useful immediate cleanup or synthesis step.
 - Theme coverage bars.
 - Gap prompts for thin themes, method imbalance, and missing fields.
 - Clipboard copy with selection fallback.

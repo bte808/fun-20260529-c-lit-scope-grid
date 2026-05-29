@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Lit Scope Grid</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=20260529-next-pass">
   </head>
   <body>
     <header class="topbar">
@@ -43,6 +43,10 @@
         </div>
 
         <div id="stats" class="stats" aria-label="Parsed note statistics"></div>
+        <section class="next-pass" aria-labelledby="next-pass-title">
+          <h3 id="next-pass-title">Next pass</h3>
+          <p id="next-action"></p>
+        </section>
         <p id="empty-state" class="empty">Paste source notes or load the synthetic sample.</p>
 
         <div class="toolbar">
@@ -85,6 +89,6 @@
       </section>
     </main>
 
-    <script type="module" src="app.js"></script>
+    <script type="module" src="app.js?v=20260529-next-pass"></script>
   </body>
 </html>

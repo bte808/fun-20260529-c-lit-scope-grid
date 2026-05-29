@@ -238,6 +238,7 @@ export function buildAnalysis(inputOrSources) {
   const completion = completionScore(sources);
   const topMethod = topEntry(methodCounts);
   const gapPrompts = buildGapPrompts(sources, themeMap, topMethod, missingByField);
+  const nextAction = buildNextAction(sources, themeMap, topMethod, missingByField);
 
   return {
     sources,
@@ -248,6 +249,7 @@ export function buildAnalysis(inputOrSources) {
     topMethod,
     missingByField,
     completion,
+    nextAction,
     gapPrompts
   };
 }
@@ -330,6 +332,36 @@ function buildGapPrompts(sources, themeMap, topMethod, missingByField) {
   return unique(prompts).slice(0, 8);
 }
 
+function buildNextAction(sources, themeMap, topMethod, missingByField) {
+  if (!sources.length) {
+    return "Load the sample or paste one source note with method, themes, finding, limitation, and evidence.";
+  }
+
+  if (sources.length < 3) {
+    const remaining = 3 - sources.length;
+    return `Add ${remaining} more source note(s) before treating this as a synthesis matrix.`;
+  }
+
+  const largestGap = Object.entries(missingByField)
+    .filter(([, count]) => count > 0)
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))[0];
+  if (largestGap) {
+    const [field, count] = largestGap;
+    return `Fill ${field} for ${count} source note(s); that column has the biggest extraction gap.`;
+  }
+
+  const thinTheme = themeMap.find((theme) => theme.count === 1);
+  if (thinTheme) {
+    return `Add one confirming or contrasting source for "${thinTheme.theme}" before using it as a synthesis theme.`;
+  }
+
+  if (topMethod && sources.length >= 3 && topMethod.count / sources.length >= 0.6) {
+    return `Add a source with a different method than "${topMethod.label}" to test whether the pattern holds across designs.`;
+  }
+
+  return "Matrix is ready for a first synthesis pass; compare disagreements and reusable evidence pointers next.";
+}
+
 function countBy(values) {
   const counts = {};
   for (const value of values) {
@@ -405,6 +437,8 @@ export function toMarkdown(analysis, options = {}) {
   for (const theme of analysis.themeMap) {
     lines.push(`- ${theme.theme}: ${theme.count} source(s), ${theme.methodCategories.join(", ")}`);
   }
+
+  lines.push("", "## Next Pass", "", `- ${analysis.nextAction}`);
 
   lines.push("", "## Gap Prompts", "");
   for (const prompt of analysis.gapPrompts) {

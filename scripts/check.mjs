@@ -20,6 +20,7 @@ assert.equal(sampleAnalysis.sourceCount, 4);
 assert.equal(sampleAnalysis.themeMap.some((entry) => entry.theme === "paper reading" && entry.count === 2), true);
 assert.equal(sampleAnalysis.completion, 100);
 assert.equal(sampleAnalysis.gapPrompts.length > 0, true);
+assert.match(sampleAnalysis.nextAction, /confirming or contrasting source/);
 
 assert.equal(classifyMethod("randomized classroom trial"), "Experiment");
 assert.equal(classifyMethod("survey questionnaire with Likert scale"), "Survey");
@@ -45,9 +46,32 @@ finding: draft only`);
 assert.equal(missing.missingByField.method, 1);
 assert.equal(missing.missingByField.limitation, 1);
 assert.equal(missing.missingByField.evidence, 1);
+assert.match(missing.nextAction, /Add 2 more source note/);
+
+const fieldGap = buildAnalysis(`title: One
+method: survey
+themes: review
+finding: ok
+limitation: narrow
+evidence: p. 1
+---
+title: Two
+method: interview
+themes: review
+finding: ok
+limitation: narrow
+evidence: p. 2
+---
+title: Three
+themes: review
+finding: ok
+limitation: narrow
+evidence: p. 3`);
+assert.match(fieldGap.nextAction, /Fill method for 1 source note/);
 
 const markdown = toMarkdown(sampleAnalysis, { title: "Check", date: "2026-05-29" });
 assert.match(markdown, /Academic caution/);
+assert.match(markdown, /## Next Pass/);
 assert.match(markdown, /\| ID \| Source \| Method/);
 
 const csv = toCsv(sampleSources);

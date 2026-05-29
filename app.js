@@ -4,7 +4,7 @@ import {
   sourceLabel,
   toCsv,
   toMarkdown
-} from "./src/litScope.js";
+} from "./src/litScope.js?v=20260529-next-pass";
 
 const STORAGE_KEY = "lit-scope-grid:draft:v1";
 
@@ -19,6 +19,7 @@ const els = {
   themeFilter: document.querySelector("#theme-filter"),
   status: document.querySelector("#status"),
   stats: document.querySelector("#stats"),
+  nextAction: document.querySelector("#next-action"),
   matrixBody: document.querySelector("#matrix-body"),
   themes: document.querySelector("#themes"),
   gaps: document.querySelector("#gaps"),
@@ -58,6 +59,7 @@ function render(message = "") {
   latestAnalysis = buildAnalysis(els.notes.value);
   localStorage.setItem(STORAGE_KEY, els.notes.value);
   renderStats();
+  renderNextAction();
   renderThemeFilter();
   renderMatrix();
   renderThemes();
@@ -69,6 +71,10 @@ function render(message = "") {
   els.downloadMd.disabled = !ready;
   els.downloadCsv.disabled = !ready;
   setStatus(notice || `${latestAnalysis.sourceCount} source note(s) parsed.`);
+}
+
+function renderNextAction() {
+  els.nextAction.textContent = latestAnalysis.nextAction;
 }
 
 function renderStats() {

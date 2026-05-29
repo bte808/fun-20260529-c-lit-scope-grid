@@ -221,6 +221,24 @@ small {
   color: #6d4014;
 }
 
+.next-pass {
+  margin: 8px 16px 2px;
+  padding: 12px 14px;
+  border: 1px solid rgba(20, 115, 108, 0.28);
+  border-left: 4px solid var(--teal);
+  border-radius: 8px;
+  background: #eff8f5;
+}
+
+.next-pass h3 {
+  margin-bottom: 5px;
+  color: var(--teal-dark);
+}
+
+.next-pass p {
+  line-height: 1.45;
+}
+
 .toolbar {
   display: flex;
   align-items: center;
