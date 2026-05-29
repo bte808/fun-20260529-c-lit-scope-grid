@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lit Scope Grid</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Local literature review matrix</p>
+        <h1>Lit Scope Grid</h1>
+      </div>
+      <div class="actions" aria-label="Primary actions">
+        <button id="load-sample" type="button">Load sample</button>
+        <button id="clear" type="button">Clear</button>
+        <button id="analyze" type="button" class="primary">Analyze</button>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <section class="input-panel" aria-labelledby="notes-label">
+        <div class="panel-heading">
+          <label id="notes-label" for="notes">Source notes</label>
+          <span id="status" role="status">Ready.</span>
+        </div>
+        <textarea id="notes" spellcheck="true" aria-describedby="format-hint"></textarea>
+        <p id="format-hint" class="hint">Use fields like title, authors, year, method, themes, finding, limitation, evidence, relevance. Separate sources with ---.</p>
+      </section>
+
+      <section class="output-panel" aria-labelledby="output-title">
+        <div class="panel-heading output-heading">
+          <div>
+            <p class="eyebrow">Synthesis draft</p>
+            <h2 id="output-title">Matrix and gap prompts</h2>
+          </div>
+          <div class="exports" aria-label="Export actions">
+            <button id="copy-md" type="button">Copy MD</button>
+            <button id="download-md" type="button">Download MD</button>
+            <button id="download-csv" type="button">Download CSV</button>
+          </div>
+        </div>
+
+        <div id="stats" class="stats" aria-label="Parsed note statistics"></div>
+        <p id="empty-state" class="empty">Paste source notes or load the synthetic sample.</p>
+
+        <div class="toolbar">
+          <label for="theme-filter">Theme</label>
+          <select id="theme-filter"></select>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Source</th>
+                <th>Method</th>
+                <th>Themes</th>
+                <th>Finding</th>
+                <th>Limitation</th>
+                <th>Evidence</th>
+              </tr>
+            </thead>
+            <tbody id="matrix-body"></tbody>
+          </table>
+        </div>
+
+        <div class="lower-grid">
+          <section class="plain-section" aria-labelledby="themes-title">
+            <h3 id="themes-title">Theme coverage</h3>
+            <ul id="themes" class="theme-list"></ul>
+          </section>
+          <section class="plain-section" aria-labelledby="gaps-title">
+            <h3 id="gaps-title">Gap prompts</h3>
+            <ul id="gaps" class="gap-list"></ul>
+          </section>
+        </div>
+
+        <section class="plain-section preview" aria-labelledby="preview-title">
+          <h3 id="preview-title">Markdown preview</h3>
+          <pre id="markdown-preview"></pre>
+        </section>
+      </section>
+    </main>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
